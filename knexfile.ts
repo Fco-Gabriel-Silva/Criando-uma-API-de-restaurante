@@ -7,7 +7,7 @@ const config: Knex.Config = {
   },
   pool: {
     afterCreate: (connection: any, done: any) => {
-      connection.run("PRAGMA foreign_keys= ON");
+      connection.run("PRAGMA foreign_keys = ON");
       done();
     },
   },
