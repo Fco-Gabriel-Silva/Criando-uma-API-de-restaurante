@@ -56,7 +56,7 @@ class ProductController {
 
       // O 'parse'  tenta validar o valor fornecido contra o esquema que você definiu.
       // Se os dados forem válidos, ele retorna o valor.
-      // Se os dados não passarem na validação, o Zod lança um erro.
+      // Se os dados não passarem na validação, o Zod lança um erro!
       const { name, price } = bodySchema.parse(request.body);
 
       await knex<ProductRepository>("products")
