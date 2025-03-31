@@ -88,7 +88,7 @@ class ProductController {
         // O 'transform' é usado para converter o valor da string para um número.
         .transform((value) => Number(value))
         // O 'refine' verifica se o valor final após a transformação não é 'NaN'.
-        // Isso é importante porque a conversão de uma string para número pode falhar se a string não for um número válido.]
+        // Isso é importante porque a conversão de uma string para número pode falhar se a string não for um número válido.
         // Se o valor for inválido, ele lança uma mensagem de erro com a frase "id must be a number".
         .refine((value) => !isNaN(value), { message: "id must be a number" })
         // O 'parse' verifica se o valor atende ao esquema definido.
