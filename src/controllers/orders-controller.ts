@@ -60,10 +60,15 @@ class OrdersController {
           "orders.product_id",
           "products.name",
           "orders.price",
-          "orders.quantity"
+          "orders.quantity",
+          // Passando código SQL direto (como se fosse uma coluna, mas não é!) para exibir o total do pedido:
+          knex.raw("(orders.price * orders.quantity) AS total"),
+          "orders.created_at",
+          "orders.updated_at"
         )
         .join("products", "products.id", "orders.product_id")
-        .where({ table_session_id });
+        .where({ table_session_id })
+        .orderBy("orders.created_at", "desc");
 
       return response.json(order);
     } catch (error) {
