@@ -75,6 +75,26 @@ class OrdersController {
       next(error);
     }
   }
+
+  async show(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { table_session_id } = request.params;
+
+      const order = await knex("orders")
+        .select(
+          // A função 'SUM()' vai somar os valores do produto do preço (price) pela quantidade (quantity) de cada pedido na tabela orders.
+          // Se a soma dos valores for nula (por exemplo, quando não houver pedidos ou todos os valores de preço e quantidade forem nulos), o COALESCE substitui o valor nulo por 0.
+          knex.raw("COALESCE(SUM(orders.price * orders.quantity), 0) AS total"),
+          knex.raw("COALESCE(SUM(orders.quantity), 0) AS quantity")
+        )
+        .where({ table_session_id })
+        .first();
+
+      return response.json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { OrdersController };
